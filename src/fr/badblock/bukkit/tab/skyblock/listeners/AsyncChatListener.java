@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import fr.xmalware.badblocktab.BadBlockTab;
-import fr.xmalware.badblocktab.objects.TabPlayer;
+import fr.badblock.bukkit.tab.skyblock.BadBlockTab;
+import fr.badblock.bukkit.tab.skyblock.objects.TabPlayer;
 
 public class AsyncChatListener implements Listener {
 	

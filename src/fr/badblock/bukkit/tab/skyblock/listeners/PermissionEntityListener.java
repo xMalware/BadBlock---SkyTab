@@ -6,9 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import fr.xmalware.badblocktab.BadBlockTab;
-import fr.xmalware.badblocktab.objects.TabPlayer;
-import fr.xmalware.badblocktab.permissions.PermissionsExManager;
+import fr.badblock.bukkit.tab.skyblock.BadBlockTab;
+import fr.badblock.bukkit.tab.skyblock.objects.TabPlayer;
+import fr.badblock.bukkit.tab.skyblock.permissions.PermissionsExManager;
 import ru.tehkode.permissions.events.PermissionEntityEvent;
 
 public class PermissionEntityListener implements Listener {

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import fr.xmalware.badblocktab.BadBlockTab;
+import fr.badblock.bukkit.tab.skyblock.BadBlockTab;
 
 public class TabPlayer {
 
@@ -54,47 +54,52 @@ public class TabPlayer {
 
 	@SuppressWarnings("deprecation")
 	public void update() {
-		//System.out.println(this.name + " > A");
-		Player player = Bukkit.getPlayer(this.uuid);
-		if (player == null || !player.isOnline()) return;
-		if (player.getScoreboard() != null)
-			scoreboard = player.getScoreboard();
-		else scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-		//System.out.println(this.name + " > B");
-		BadBlockTab instance = BadBlockTab.getInstance();
-		String o = "A";
-		for (Entry<String, String> entry : instance.teamsGroup.entrySet())
-			if (entry.getValue().equals(group))
-				o = entry.getKey();
-		//System.out.println(this.name + " > C > " + o);
-		// envoi d'une update aux scoreboards des autres pour lui
-		for (Player plo : Bukkit.getOnlinePlayers()) {
-			//	System.out.println(this.name + " > D > " + plo.getName());
-			TabPlayer tb = TabPlayer.getPlayer(plo);
-			if (tb.scoreboard != null) {
-				for (Team team : tb.scoreboard.getTeams()) {
-					//	System.out.println(this.name + " > E > " + plo.getName() + " > RM " + team.getName());
-					team.removePlayer(player);
-				}
-				Team team = tb.scoreboard.getTeam(o);
-				//System.out.println(this.name + " > F > " + plo.getName() + " > " + team);
-				if (team != null) {
-					//	System.out.println(this.name + " > G > " + plo.getName() + " > " + team.getName());
-					if (!team.hasPlayer(player)) {
-						//	System.out.println(this.name + " > H > " + plo.getName() + " > " + team.getName());
-						team.addPlayer(player);
+		Bukkit.getScheduler().runTaskLater(BadBlockTab.getInstance(), new Runnable() {
+			@Override
+			public void run() {
+				//System.out.println(this.name + " > A");
+				Player player = Bukkit.getPlayer(uuid);
+				if (player == null || !player.isOnline()) return;
+				if (player.getScoreboard() != null)
+					scoreboard = player.getScoreboard();
+				else scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+				//System.out.println(this.name + " > B");
+				BadBlockTab instance = BadBlockTab.getInstance();
+				String o = "A";
+				for (Entry<String, String> entry : instance.teamsGroup.entrySet())
+					if (entry.getValue().equals(group))
+						o = entry.getKey();
+				//System.out.println(this.name + " > C > " + o);
+				// envoi d'une update aux scoreboards des autres pour lui
+				for (Player plo : Bukkit.getOnlinePlayers()) {
+					//	System.out.println(this.name + " > D > " + plo.getName());
+					TabPlayer tb = TabPlayer.getPlayer(plo);
+					if (tb.scoreboard != null) {
+						for (Team team : tb.scoreboard.getTeams()) {
+							//	System.out.println(this.name + " > E > " + plo.getName() + " > RM " + team.getName());
+							team.removePlayer(player);
+						}
+						Team team = tb.scoreboard.getTeam(o);
+						//System.out.println(this.name + " > F > " + plo.getName() + " > " + team);
+						if (team != null) {
+							//	System.out.println(this.name + " > G > " + plo.getName() + " > " + team.getName());
+							if (!team.hasPlayer(player)) {
+								//	System.out.println(this.name + " > H > " + plo.getName() + " > " + team.getName());
+								team.addPlayer(player);
+							}
+						}
+						if (BadBlockTab.getInstance().afk.contains(player.getName())) {
+							Team afkTeam = tb.scoreboard.getTeam("0");
+							afkTeam.addPlayer(player);
+						}
 					}
 				}
-				if (BadBlockTab.getInstance().afk.contains(player.getName())) {
-					Team afkTeam = tb.scoreboard.getTeam("0");
-					afkTeam.addPlayer(player);
-				}
 			}
-		}
+		}, 21);
 	}
 
 	public void remove() {
-		players.remove(this);
+		players.remove(uuid);
 	}
 
 	public static TabPlayer getPlayer(Player player) {

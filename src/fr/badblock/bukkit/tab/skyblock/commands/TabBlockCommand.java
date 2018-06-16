@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import fr.xmalware.badblocktab.BadBlockTab;
+import fr.badblock.bukkit.tab.skyblock.BadBlockTab;
 
 public class TabBlockCommand implements CommandExecutor {
 
