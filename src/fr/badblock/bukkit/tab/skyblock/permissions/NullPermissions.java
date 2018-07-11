@@ -20,6 +20,11 @@ public class NullPermissions extends AbstractPermissions {
 	}
 	
 	@Override
+	public String getOwnSuffix(Player base) {
+		return "";
+	}
+	
+	@Override
 	public boolean hasPermission(Player base, String node){
 		return base.hasPermission(node);
 	}

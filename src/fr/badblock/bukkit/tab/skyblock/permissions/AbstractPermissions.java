@@ -24,9 +24,11 @@ public abstract class AbstractPermissions {
 		if(permissions == null) init();
 		return permissions;
 	}
+	
 	public abstract String getGroup(Player base);
 	public abstract String getPrefix(Player base);
 	public abstract String getSuffix(Player base);
+	public abstract String getOwnSuffix(Player base);
 	public abstract String[] getGroups(Player base);
 	public abstract boolean	isInGroup(Player base, String groupName);
 	public abstract void removeGroup(Player base, String groupName);

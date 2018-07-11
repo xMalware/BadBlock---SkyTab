@@ -22,6 +22,7 @@ public class TabPlayer {
 	public String		 	 prefix;
 	public String			 group;
 	public String		 	 suffix;
+	public String		 	 ownSuffix;
 	public Map<String, Team> teams   			 	= new HashMap<>();
 	public long				 lastMessage;
 
@@ -30,6 +31,7 @@ public class TabPlayer {
 		players.put(uuid, this);
 		group = BadBlockTab.getInstance().permissionsExManager.getGroup(player);
 		suffix = BadBlockTab.getInstance().permissionsExManager.getSuffix(player);
+		ownSuffix = BadBlockTab.getInstance().permissionsExManager.getOwnSuffix(player);
 		prefix = BadBlockTab.getInstance().permissionsExManager.getPrefix(player);
 		Bukkit.getScheduler().runTaskLater(BadBlockTab.getInstance(), new Runnable() {
 			@Override
